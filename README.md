@@ -133,6 +133,88 @@ Our paper has been accepted as a demo paper at VLDB2023:
 }
 ```
 
+
+````
+# Lynx
+
+Lynx 是一个强大的通用图查询框架，通过将复杂语句转换为基本的图操作，简化图数据的查询过程。  
+本框架支持多种数据源和查询场景，适用于社交网络分析、知识图谱构建、商品推荐等领域。
+
+## 特点
+- 支持多种图操作：节点匹配、边关系查询、最短路径等。
+- 灵活的数据源连接：通过用户实现的接口加载数据。
+- 高效查询：适合大规模图数据。
+
+---
+
+## 快速开始
+
+1. **安装**
+   ```bash
+   pip install lynx-framework
+
+````
+
+1.  **定义数据模型**
+
+    ```
+    lynx.add_node_type("User")
+    lynx.add_edge_type("Friendship", from_type="User", to_type="User")
+
+    ```
+2.  **执行查询**
+
+    ```
+    query = lynx.query()
+    result = query.match("User").where(id=1).outgoing("Friendship").return_all()
+    print(result)
+
+    ```
+
+***
+
+## 用例与模板
+
+### 社交网络分析
+
+#### 数据源
+
+社交网络中的用户和好友关系图。
+
+#### 查询示例
+
+```
+lynx.add_node_type("User")
+lynx.add_edge_type("Friendship", from_type="User", to_type="User")
+
+query = lynx.query()
+friends = query.match("User").where(id=1).outgoing("Friendship").return_all()
+print(friends)
+
+```
+
+### 商品推荐系统
+
+#### 数据源
+
+电商平台上的用户和商品交互数据。
+
+#### 查询示例
+
+```
+lynx.add_node_type("User")
+lynx.add_node_type("Product")
+lynx.add_edge_type("Interaction", from_type="User", to_type="Product")
+
+query = lynx.query()
+recommendations = query.match("User").where(id=1).outgoing("Interaction").return_all()
+print(recommendations)
+
+```
+
+
+
+
 <!-- ACKNOWLEDGMENTS -->
 <!-- ## Acknowledgments
 
